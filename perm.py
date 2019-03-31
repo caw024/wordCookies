@@ -1,45 +1,35 @@
 #unique elements, generate all arrangements of n numbers
 
 def perm(data):
-    possible = []
-    numbers = []
-    total = []
+    data = list(data)
+    usednums = []
+    unusednums = []
+    totalperm = []
     for i in data:
-        numbers.append(i)
-    num = len(numbers)
-    fact = 1
-    for k in range(1,num+1):
-        fact *= k
+        unusednums.append(i)
+    num = len(unusednums)
+    string = ""
     
     #you have all the #s, now find their arragements
-    return poss(possible,numbers,total,fact)
+    return poss(unusednums,usednums,totalperm,string)
 
-#current list, remaining numbers
-def poss(list,remnum,fin,fact):
-    if len(fin) == fact:
-        return fin
-    if remnum == []:
-        fin.append(list)
-        return
+
+def poss(unusednums,usednums,totalperm,string):
+    if unusednums == None:
+        totalperm.append(string)
+        print(string)
+        return totalperm
     else:
-        i = len(remnum)-1
-        while (i >= 0):
-            a = []
-            b = []
-            for j in remnum:
-                a.append(j)
-            for k in list:
-                b.append(k)
-            val = a[i]
-            del a[i]
-            b.append(val)
-            return poss(b,a,fin,fact)
-            i-=1
-        
+        semiperm = totalperm[:]
+        for k in unusednums:
+            currperm = semiperm[:]
+            currunused = unusednums[:]
+            currused = usednums[:]
+            currstring = "".join(list(string))
 
-perm([1,2,3])
+            totalperm += poss(currunused.remove(k),currused.append(k),currperm,currstring+k)
+        return totalperm
         
-    
-    
-#know how to write to files
-#how to classes + working w priority queue in heap form
+                
+
+print( perm(['a','b','c']) )

@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 import sys
-  
-def perm(word):
-  word = list(word)
-  
+from perm import *  
   
 
 def Process(infile,outfile):
