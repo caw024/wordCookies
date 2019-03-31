@@ -4,7 +4,7 @@ from perm import *
   
 
 def Process(infile,outfile):
-  #f has pair of words to apply wordladder to
+  #f has the words in fred.txt
   f = open(infile, 'r')
   words = f.read().split('\n')
   f.close()
@@ -21,23 +21,37 @@ def Process(infile,outfile):
       
   i = 0
   while i < len(words):
-    curr = word[i]
+    curr = words[i]
     length = len(curr)
   
-    #get all words of same length
+    #get all words into dict with key = length, val = set of possibilities
     if length not in mywordlist:
-      mywordlist[length] = {}
+      mywordlist[length] = {0}
       for k in wordlist:
         if len(k) == length:
-          set = mywordlist[length]
-          mywordlist[length] = set.add(k)
+          myset = mywordlist[length]
+          myset.add(k)
+          mywordlist[length] = myset
           #print(k)
 
-    perms = perm(curr)
-    
-    
+    currwordlist = mywordlist[length]
+
+    allperms = perm(curr)
+    print("allperms: ")
+    print(allperms)
+    pushstr = curr + ":"
+    for k in allperms:
+      if k in currwordlist:
+        if k != curr:
+          pushstr += k + ","
+    pushstr = pushstr[:-1]
+    towrite.append(pushstr)
+
+    i+=1
+  print("towrite: ")
+  print(towrite)
   towrite = '\n'.join(towrite)
-  #g is what we will return
+  #g is what we will return to harry.txt
   g = open(outfile,'w')
   g.write(towrite)
   g.close()

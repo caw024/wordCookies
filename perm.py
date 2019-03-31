@@ -4,32 +4,40 @@ def perm(data):
     data = list(data)
     usednums = []
     unusednums = []
-    totalperm = []
+    #total perm is a set
+    totalperm = {0}
+    totalperm.remove(0)
     for i in data:
         unusednums.append(i)
-    num = len(unusednums)
-    string = ""
+
+    return poss(unusednums,usednums,totalperm)
     
     #you have all the #s, now find their arragements
-    return poss(unusednums,usednums,totalperm,string)
+    #return poss(unusednums,usednums,totalperm,currwordlist)
 
 
-def poss(unusednums,usednums,totalperm,string):
-    if unusednums == None:
-        totalperm.append(string)
-        print(string)
+def poss(unusednums,usednums,totalperm):
+    if len(unusednums) == 1:
+        newstr = "".join(usednums[:] + unusednums)
+        #if newstr in currwordlist:
+        totalperm.add(newstr)
         return totalperm
     else:
-        semiperm = totalperm[:]
+        nullset = {0}
+        nullset.remove(0)
+        semiperm = nullset.union(totalperm)
         for k in unusednums:
-            currperm = semiperm[:]
             currunused = unusednums[:]
             currused = usednums[:]
-            currstring = "".join(list(string))
+            currperm = nullset.union(semiperm)
+            #currstring = "".join(list(string)) + k
 
-            totalperm += poss(currunused.remove(k),currused.append(k),currperm,currstring+k)
+            currunused.remove(k)
+            currused.append(k)
+           
+            totalperm = totalperm.union( poss(currunused,currused,currperm) )
+            #print(k,currperm,currunused,currused)
+            #print(semiperm,unusednums,usednums)
         return totalperm
-        
-                
-
-print( perm(['a','b','c']) )
+#observations: can handle only 9 distinct letters at a time
+#if some repeated letters, the computer may be able to handle it
