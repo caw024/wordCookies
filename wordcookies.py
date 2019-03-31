@@ -48,8 +48,6 @@ def Process(infile,outfile):
     towrite.append(pushstr)
 
     i+=1
-  print("towrite: ")
-  print(towrite)
   towrite = '\n'.join(towrite)
   #g is what we will return to harry.txt
   g = open(outfile,'w')
