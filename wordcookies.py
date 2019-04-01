@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import sys
 from perm import *  
-  
 
 def Process(infile,outfile):
   #f has the words in fred.txt
@@ -25,25 +24,37 @@ def Process(infile,outfile):
     length = len(curr)
   
     #get all words into dict with key = length, val = set of possibilities
-    if length not in mywordlist:
-      mywordlist[length] = {0}
-      for k in wordlist:
-        if len(k) == length:
-          myset = mywordlist[length]
-          myset.add(k)
-          mywordlist[length] = myset
-          #print(k)
-
-    currwordlist = mywordlist[length]
+    while length > 0:
+      if length not in mywordlist:
+        mywordlist[length] = {0}
+        for k in wordlist:
+          if len(k) == length:
+            myset = mywordlist[length]
+            myset.add(k)
+            mywordlist[length] = myset
+            #print(k)
+      length-=1
 
     allperms = perm(curr)
-    print("allperms: ")
-    print(allperms)
+      
     pushstr = curr + ":"
+    pushdict = {}
     for k in allperms:
-      if k in currwordlist:
+      templen = len(k)
+      if templen > 0 and k in mywordlist[templen]:
         if k != curr:
-          pushstr += k + ","
+          if templen not in pushdict:
+            pushdict[templen] = {k}
+          else:
+            myset = pushdict[templen]
+            myset.add(k)
+            pushdict[templen] = myset
+
+    for j in pushdict:
+      pushstr += "\n\tlength " + str(j) + ":\n\t\t"
+      for a in pushdict[j]:
+        pushstr += a + ","
+      pushstr = pushstr[:-1]
     pushstr = pushstr[:-1]
     towrite.append(pushstr)
 
