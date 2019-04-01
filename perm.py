@@ -20,7 +20,6 @@ def perm(data):
     #return poss(unusednums,usednums,totalperm,currwordlist)
 
 
-
 def newdict(available):
   mydict = {}
   for k in available:
@@ -53,8 +52,6 @@ def poss(unusednums,usednums,totalperm):
             #print(k,currperm,currunused,currused)
             #print(semiperm,unusednums,usednums)
         return totalperm
-#observations: can handle only 9 distinct letters at a time
-#if some repeated letters, the computer may be able to handle it
 
 
 #print( perm("abcd") )

@@ -49,13 +49,19 @@ def Process(infile,outfile):
             myset = pushdict[templen]
             myset.add(k)
             pushdict[templen] = myset
-
+    max = 0
     for j in pushdict:
-      pushstr += "\n\tlength " + str(j) + ":\n\t\t"
-      for a in pushdict[j]:
-        pushstr += a + ","
-      pushstr = pushstr[:-1]
-    pushstr = pushstr[:-1]
+      if max < j:
+        max = j
+
+    ctr = 0
+    while ctr <= max:
+      if ctr in pushdict:      
+        pushstr += "\n\tlength " + str(ctr) + ":\n\t\t"
+        for a in pushdict[ctr]:
+          pushstr += a + ","
+        pushstr = pushstr[:-1]
+      ctr += 1
     towrite.append(pushstr)
 
     i+=1
