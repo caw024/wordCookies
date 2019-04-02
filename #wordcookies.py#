@@ -115,7 +115,7 @@ def Process2(inputfile,outputfile):
 #$ ./fred.py A.txt(words of same length) B.txt
 def main():
   Process2(sys.argv[1],sys.argv[2])
-
+  
 start = time.time()
 main()
 end = time.time()
