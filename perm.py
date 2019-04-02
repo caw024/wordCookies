@@ -55,3 +55,5 @@ def poss(unusednums,usednums,totalperm):
 
 
 #print( perm("abcd") )
+#print( perm("carthors") )
+
