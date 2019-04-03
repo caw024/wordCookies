@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import sys
-import time
 from perm import *
-
+import time
 def Process(infile,outfile):
   #f has the words in fred.txt
   f = open(infile, 'r')
@@ -20,7 +19,7 @@ def Process(infile,outfile):
   checked = {}
 
   i = 0
-  while i < len(words):
+  while i < len(words) and len(words[i]) > 0:
     curr = words[i]
     length = len(curr)
 
@@ -36,9 +35,11 @@ def Process(infile,outfile):
             #print(k)
       length-=1
 
+    start = time.time()
     allperms = perm(curr)
-
-    pushstr = curr + ":"
+    total = time.time()-start
+    
+    pushstr = curr + ": " + str(total)
     pushdict = {}
     for k in allperms:
       templen = len(k)
@@ -57,8 +58,8 @@ def Process(infile,outfile):
 
     ctr = 0
     while ctr <= max:
-      if ctr in pushdict:
-        pushstr += "\n\tlength " + str(ctr) + ":\n\t\t"
+      if ctr in pushdict:      
+        pushstr += "\n\tlength " + str(ctr) + ": " + str(len(pushdict[ctr])) + "\n\t\t"
         for a in pushdict[ctr]:
           pushstr += a + ","
         pushstr = pushstr[:-1]
